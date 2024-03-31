@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:cafe_management_system/core/utils/constants/apis.dart';
+import 'package:cafe_management_system/core/utils/helpers/sky_requests.dart';
 import 'package:cafe_management_system/features/screens/auth/register/register_request_params.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/access_token_model.dart';
 import '../model/user_model.dart';
 import '../utils/constants/messages.dart';
-import '../utils/helpers/app_requests.dart';
 import '../utils/helpers/log_helper.dart';
 import '../utils/helpers/storage_helper.dart';
 
@@ -22,7 +22,7 @@ class AuthRepo {
 
       var body = registerRequestParams?.toJson();
 
-      http.Response response = await AppRequest.post(url, body: body);
+      http.Response response = await SkyRequest.post(url, body: body);
 
       dynamic data = json.decode(response.body);
 
@@ -57,11 +57,11 @@ class AuthRepo {
         "email": email,
         "password": password,
       };
-      http.Response response = await AppRequest.post(url, body: body);
+      http.Response response = await SkyRequest.post(url, body: body);
       dynamic data = json.decode(response.body);
 
       if (data['status']) {
-        var user = User.fromJson(data['data']);
+        var user = User.fromJson(data['data']['user']);
         var accessToken = AccessToken.fromJson(data['data']['token']);
         print("=====u=====>$user");
         print("=====t====>$accessToken");

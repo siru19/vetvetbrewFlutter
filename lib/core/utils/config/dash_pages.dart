@@ -9,6 +9,9 @@
 // import 'package:get/get.dart';
 
 import 'package:cafe_management_system/core/controllers/dashscreen/dash_page_manager_controller.dart';
+import 'package:cafe_management_system/core/controllers/dashscreen/menu/menu_controller.dart';
+import 'package:cafe_management_system/core/controllers/dashscreen/profile/profile_controller.dart';
+import 'package:cafe_management_system/core/controllers/dashscreen/table/table_controller.dart';
 import 'package:cafe_management_system/features/screens/favourites/controller/favourite_controller.dart';
 import 'package:cafe_management_system/features/screens/product/controller/product_controller.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
@@ -18,7 +21,7 @@ import 'package:get/get.dart';
 
 import '../../../features/screens/dashscreen/dashboard_panel.dart';
 import '../../../features/screens/favourites/presentation/favourites_screen.dart';
-import '../../controllers/dashscreen/home_screen_controller.dart';
+import '../../controllers/dashscreen/home/home_screen_controller.dart';
 
 final List<GetPage> dashScreenPages = <GetPage>[
   GetPage(
@@ -28,6 +31,10 @@ final List<GetPage> dashScreenPages = <GetPage>[
       () {
         Get.lazyPut(() => DashboardPanelController());
         Get.lazyPut(() => HomeScreenController());
+        Get.lazyPut(() => CafeMenuItemsController());
+        Get.lazyPut(() => TableController());
+        Get.lazyPut(() => ProfileController());
+
         // Get.lazyPut(() => ProfileController());
         // Get.lazyPut(() => ProfileController());
         // Get.lazyPut(() => SettingsController());
@@ -35,7 +42,6 @@ final List<GetPage> dashScreenPages = <GetPage>[
       },
     ),
   ),
-
 
   GetPage(
     name: ProductDetailScreen.routeName,
@@ -57,7 +63,7 @@ final List<GetPage> dashScreenPages = <GetPage>[
     ),
   ),
 
-GetPage(
+  GetPage(
     name: RecentOrdersScreen.routeName,
     page: () => RecentOrdersScreen(),
     binding: BindingsBuilder(

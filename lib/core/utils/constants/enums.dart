@@ -1,8 +1,8 @@
-enum AppPageState{
-  loading,
-  error,
-  normal,
-  empty
+enum PageState{
+  LOADING,
+  ERROR,
+  NORMAL,
+  EMPTY
 }
 
 

@@ -5,19 +5,22 @@ import 'package:cafe_management_system/core/utils/helpers/log_helper.dart';
 import 'package:cafe_management_system/core/utils/helpers/storage_helper.dart';
 import 'package:get/get.dart';
 
+import '../../features/screens/dashscreen/dashboard_panel.dart';
+import '../widgets/custom/app_progress_dialog.dart';
+
 class CoreController extends GetxController {
   Rxn<User> currentUser = Rxn();
 //   Rxn<AccessToken> accessToken = Rxn();
 
-//   @override
-//   void onInit() {
-//     loadCurrentUser();
-//     super.onInit();
-//   }
+  @override
+  void onInit() {
+    loadCurrentUser();
+    super.onInit();
+  }
 
-//   bool isUserLoggedIn() {
-//     return currentUser.value != null;
-//   }
+  bool isUserLoggedIn() {
+    return currentUser.value != null;
+  }
 
   Future<void> loadCurrentUser() async {
     currentUser.value = StorageHelper.getUser();
@@ -41,17 +44,17 @@ class CoreController extends GetxController {
 
 // // bool isUserLoggedIn() => currentUser.value != null;
 
-//   void logOut() async {
-//     LogHelper.error("logout is hit");
-//     final ProgressDialog loading = ProgressDialog();
+  void logOut() async {
+    LogHelper.error("logout is hit");
+    final ProgressDialog loading = ProgressDialog();
 
-//     loading.show(message: "Logging out...");
-//     StorageHelper.clear();
-//     loadCurrentUser();
-//     loading.hide();
+    loading.show(message: "Logging out...");
+    StorageHelper.clear();
+    loadCurrentUser();
+    loading.hide();
 
-//     Get.offAllNamed(DashPageManager.routeName);
-//   }
+    Get.offAllNamed(DashPageManager.routeName);
+  }
 
 //   // Future<bool> checkCameraPermission() async {
 //   //   bool hasAccess = false;

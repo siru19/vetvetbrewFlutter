@@ -45,6 +45,7 @@ dependencies:
   logger: ^2.1.0
   shimmer: ^3.0.0
   pinput: ^4.0.0
+  flutter_datetime_picker_bdaya: ^3.0.2
 
 dev_dependencies:
   flutter_test:

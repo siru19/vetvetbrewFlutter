@@ -15,8 +15,13 @@ class IconPath {
   static const String unAuth = "$basePath/unAuth.svg";
   static const String logout = "$basePath/logout.svg";
   static const String map = "$basePath/map.svg";
-  static const String unlock = "$basePath/unlock.svg";
+  static const String smoothies = "$basePath/smoothies.svg";
+  static const String table = "$basePath/table.svg";
+  static const String tableBooking = "$basePath/table_booking.svg";
 
+  static const String unlock = "$basePath/unlock.svg";
+  static const String minus = "$basePath/minus.svg";
+  static const String plus = "$basePath/plus.svg";
   //cafe mgmt icons
   static const String cupLogo = "$basePath/cup_logo.svg";
   static const String forgotpw = "$basePath/forgot_pw.svg";

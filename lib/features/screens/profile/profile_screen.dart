@@ -7,10 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../core/controllers/dashscreen/profile/profile_controller.dart';
 import '../../../core/widgets/common/network_imge.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  static const String routeName = "/profile-page/";
+  final c = Get.find<ProfileController>();
+  ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +75,19 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Text(
-                  "Sital Bhandari",
-                  style: CustomTextStyles.f20W600(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      c.coreController.currentUser.value?.name ??
+                          "Guest Account",
+                      style: CustomTextStyles.f20W600(),
+                    ),
+                    Text(
+                      c.coreController.currentUser.value?.email ?? "",
+                      style: CustomTextStyles.f16W700(),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -14,7 +14,6 @@ import 'auth_pages.dart';
 final List<GetPage> getPages = <GetPage>[
   ...authPages,
   ...dashScreenPages,
-// //   GetPage(name: FirstPage.routeName, page: () => const FirstPage()),
   GetPage(
       name: SplashScreen.routeName,
       page: () => SplashScreen(),

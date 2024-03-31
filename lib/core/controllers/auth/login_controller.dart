@@ -33,12 +33,12 @@ class LoginController extends GetxController {
 
             loading.hide();
             Get.offAllNamed(DashPageManager.routeName);
-            GearSnackBar.success(
+            SkySnackBar.success(
                 title: "Login Success", message: "User logged in successfully");
           },
           onError: (message) {
             loading.hide();
-            GearSnackBar.error(title: "Login Failed", message: message);
+            SkySnackBar.error(title: "Login Failed", message: message);
           });
     }
   }

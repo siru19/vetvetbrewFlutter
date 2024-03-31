@@ -1,10 +1,7 @@
-import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:cafe_management_system/features/screens/favourites/controller/favourite_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../home/home_screen.dart';
 
 class FavouritesScreen extends StatelessWidget {
   static const String routeName = "/fav-screen";
@@ -41,19 +38,16 @@ class FavouritesScreen extends StatelessWidget {
                   //     8.0), // padding around the grid
                   itemCount: 20,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        // Get.toNamed(Routes.map_screen);
-                      },
-                      child: Item(
-                        icon: IconPath.apple,
-                        title: "Cappacino",
-                        price: "Rs. 499",
-                        onTap: () {
-                          // Get.toNamed(Routes.map_screen,
-                          //     arguments: category.id);
-                        },
-                      ),
+                    // return InkWell(
+                    //   onTap: () {
+                    //     // Get.toNamed(Routes.map_screen);
+                    //   },
+                    //   child: ItemCard(
+
+                    //   ),
+                    // );
+                    return Container(
+                      child: Text("demo"),
                     );
                   },
                 ),

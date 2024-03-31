@@ -1,13 +1,19 @@
+import 'package:cafe_management_system/core/model/category_model.dart';
+import 'package:cafe_management_system/core/utils/constants/apis.dart';
 import 'package:cafe_management_system/core/utils/constants/colors.dart';
+import 'package:cafe_management_system/core/utils/constants/enums.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
+import 'package:cafe_management_system/core/widgets/common/network_imge.dart';
 import 'package:cafe_management_system/core/widgets/common/text_form_field.dart';
+import 'package:cafe_management_system/core/widgets/shimmer/product_shimmer.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../core/controllers/dashscreen/home_screen_controller.dart';
+import '../../../core/controllers/dashscreen/home/home_screen_controller.dart';
+import '../../../core/model/item_model.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/home-screen";
@@ -26,6 +32,11 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           InkResponse(
+            onTap: () {
+              print(c.itemList);
+              // c.getAllCategories();
+              // getData();
+            },
             child: SvgPicture.asset(IconPath.notifi),
           )
         ],
@@ -41,9 +52,9 @@ class HomeScreen extends StatelessWidget {
                   "Good Morning !",
                   style: CustomTextStyles.f20W600(),
                 ),
-                InkResponse(
-                  child: SvgPicture.asset(IconPath.scan),
-                )
+                // InkResponse(
+                //   child: SvgPicture.asset(IconPath.scan),
+                // )
               ],
             ),
             const SizedBox(
@@ -61,96 +72,187 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
+            // Container(
+            //     width: Get.width,
+            //     padding: const EdgeInsets.all(10),
+            //     decoration: BoxDecoration(
+            //       border: Border.all(
+            //         color: Colors.transparent,
+            //       ),
+            //       color: AppColors.primary,
+            //       borderRadius: BorderRadius.circular(6),
+            //     ),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           "Buy 1 Get 1 Free",
+            //           style:
+            //               CustomTextStyles.f16W300(color: AppColors.whiteColor),
+            //         ),
+            //         SvgPicture.asset(
+            //           IconPath.smoothies,
+            //           height: 80,
+            //           width: 80,
+            //           alignment: Alignment.center,
+            //         ),
+            //       ],
+            //     )),
+            // const SizedBox(
+            //   height: 10,
+            // ),
             Container(
-              width: Get.width,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.transparent,
+                width: Get.width,
+                height: 50,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(6),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 204, 203, 203),
+                      blurRadius: 2.0,
+                      spreadRadius: 1,
+                      offset: Offset(
+                        0,
+                        3,
+                      ),
+                    )
+                  ],
                 ),
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                "Buy 1 Get 1 Free",
-                style: CustomTextStyles.f16W300(color: AppColors.whiteColor),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: Get.width,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.circular(6),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color.fromARGB(255, 204, 203, 203),
-                    blurRadius: 2.0,
-                    spreadRadius: 1,
-                    offset: Offset(
-                      0,
-                      3,
-                    ),
-                  )
-                ],
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CoffeeCategory(
-                    category: "All Beverages",
-                  ),
-                  CoffeeCategory(
-                    category: "Hot Coffee",
-                  ),
-                  CoffeeCategory(
-                    category: "Cold Coffee",
-                  ),
-                ],
-              ),
-            ),
+                child: Center(
+                  child: Obx(() {
+                    if (c.pageState.value == PageState.LOADING) {
+                      return const Center(
+                        child: LinearProgressIndicator(),
+                      );
+                    } else if (c.pageState.value == PageState.EMPTY) {
+                      return const Center(
+                        child: Text("Empty Categories"),
+                      );
+                    } else if (c.pageState.value == PageState.NORMAL) {
+                      return Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              c.selectedIndex.value = -1;
+                              c.getAllProducts();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: c.selectedIndex.value == -1
+                                    ? AppColors.primary
+                                    : AppColors.whiteColor,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Text(
+                                "All",
+                                style: CustomTextStyles.f16W300(
+                                    color: c.selectedIndex.value == -1
+                                        ? AppColors.whiteColor
+                                        : AppColors.primary),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(
+                                    width: 5,
+                                  );
+                                },
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: c.categoryList.length,
+                                itemBuilder: (context, index) {
+                                  var category = c.categoryList[index];
+                                  if (category != null) {
+                                    return Obx(
+                                      () => GestureDetector(
+                                        onTap: () {
+                                          c.selectedIndex.value = index;
+                                          c.getProductsByCategoryId(
+                                              category.id!);
+                                        },
+                                        child: CoffeeCategory(
+                                          category: category,
+                                          backgroundColor: index ==
+                                                  c.selectedIndex.value
+                                              ? AppColors
+                                                  .primary // Change background color if index matches selected index
+                                              : AppColors.whiteColor,
+                                          textColor: index ==
+                                                  c.selectedIndex.value
+                                              ? AppColors
+                                                  .whiteColor // Change text color if index matches selected index
+                                              : AppColors.primary,
+
+                                          // backgroundColor: AppColors.primary,
+                                          // textColor: AppColors.whiteColor,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: Text(
+                                          "Error while fetching the categories"),
+                                    );
+                                  }
+                                }),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const Center(
+                        child: Text("Error View"),
+                      );
+                    }
+                  }),
+                )),
             const SizedBox(
               height: 10,
             ),
             Expanded(
-              child: SizedBox(
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  // physics: AlwaysScrollableScrollPhysics(),
-                  // physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // number of items in each row
-                      mainAxisSpacing: 20, // spacing between rows
-                      crossAxisSpacing: 20,
-                      childAspectRatio: 0.9 // spacing between columns
-                      ),
-                  // padding: const EdgeInsets.all(
-                  //     8.0), // padding around the grid
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        // Get.toNamed(Routes.map_screen);
+              child: Obx(() {
+                if (c.pageState.value == PageState.LOADING) {
+                  return CategoryShimmer.categoryGrid();
+                } else if (c.pageState.value == PageState.EMPTY) {
+                  return const Center(
+                    child: Text("Empty"),
+                  );
+                } else if (c.pageState.value == PageState.NORMAL) {
+                  return SizedBox(
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, // number of items in each row
+                              mainAxisSpacing: 20, // spacing between rows
+                              crossAxisSpacing: 20,
+                              childAspectRatio: 0.9 // spacing between columns
+                              ),
+                      itemCount: c.itemList.length,
+                      itemBuilder: (context, index) {
+                        var product = c.itemList[index];
+                        return ItemCard(
+                          cafeItem: product,
+                        );
                       },
-                      child: Item(
-                        icon: IconPath.apple,
-                        title: "Cappacino",
-                        price: "Rs. 499",
-                        onTap: () {
-                          // Get.toNamed(Routes.map_screen,
-                          //     arguments: category.id);
-
-                          Get.toNamed(ProductDetailScreen.routeName);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: Text("Error View"),
+                  );
+                }
+              }),
+            )
           ],
         ),
       ),
@@ -159,52 +261,50 @@ class HomeScreen extends StatelessWidget {
 }
 
 class CoffeeCategory extends StatelessWidget {
-  final String? category;
+  final MenuCategory category;
   final Color? backgroundColor;
   final Color? textColor;
-  const CoffeeCategory({
-    super.key,
-    required this.category,
-    this.textColor,
-    this.backgroundColor,
-  });
+  const CoffeeCategory(
+      {super.key,
+      required this.category,
+      this.backgroundColor,
+      this.textColor});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: AppColors.primary ?? backgroundColor,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Text(
-        category ?? "",
+        category.name ?? "",
         style: CustomTextStyles.f16W300(
             //TODO condition anusar check garne
-            color: AppColors.whiteColor),
+            color: textColor),
       ),
     );
   }
 }
 
-class Item extends StatelessWidget {
-  final String? icon;
-  final String? title;
-  final VoidCallback? onTap;
-  final String? price;
+class ItemCard extends StatelessWidget {
+  // final String? icon;
+  // final String? title;
+  // final String? price;
+  final CafeItem cafeItem;
 
-  Item({
+  ItemCard({
     super.key,
-    required this.icon,
-    required this.title,
-    this.onTap,
-    required this.price,
+    required this.cafeItem,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        Get.toNamed(ProductDetailScreen.routeName);
+      },
       child: Container(
         padding: const EdgeInsets.only(left: 6, right: 6, top: 4, bottom: 6),
         decoration: BoxDecoration(
@@ -234,25 +334,43 @@ class Item extends StatelessWidget {
             //   width: 35,
             //   alignment: Alignment.center,
             // ),
+
             Expanded(
               flex: 3,
               child: Align(
                 alignment: Alignment.center,
-                child: SvgPicture.asset(
-                  "$icon",
+                child: SkyNetworkImage(
+                  imageUrl: "${Api.imageUrl}${cafeItem.imageModel?.fileName}",
                   height: 80,
-                  width: 80,
-                  alignment: Alignment.center,
+                  // width: 80,
+                  boxFit: BoxFit.cover,
+                  // alignment: Alignment.center,
                 ),
               ),
             ),
 
+            // ---static img
+            // Expanded(
+            //   flex: 3,
+            //   child: Align(
+            //     alignment: Alignment.center,
+            //     child: SvgPicture.asset(
+            //       IconPath.apple,
+            //       height: 80,
+            //       width: 80,
+            //       alignment: Alignment.center,
+            //     ),
+            //   ),
+            // ),
+
             Expanded(
                 flex: 2,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      title ?? "",
+                      cafeItem.name ?? "",
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontSize: 14,
                             color: AppColors.primary,
@@ -262,14 +380,15 @@ class Item extends StatelessWidget {
                     const SizedBox(
                       height: 4,
                     ),
-                    Text(
-                      price ?? "",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontSize: 14,
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
+                    if (cafeItem.price != null)
+                      Text(
+                        "Rs. ${cafeItem.price}",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontSize: 14,
+                              color: AppColors.blackColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                     const SizedBox(
                       height: 4,
                     ),
@@ -278,7 +397,7 @@ class Item extends StatelessWidget {
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
                         "Order Now",

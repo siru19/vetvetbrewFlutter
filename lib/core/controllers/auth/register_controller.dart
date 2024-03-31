@@ -43,13 +43,13 @@ class RegisterController extends GetxController {
             loading.hide();
             coreController.loadCurrentUser();
             Get.offAllNamed(LoginScreen.routeName);
-            GearSnackBar.success(
+            SkySnackBar.success(
                 title: "Register Success",
                 message: "Account created successfully");
           },
           onError: (message) {
             loading.hide();
-            GearSnackBar.error(title: "Register Failed", message: message);
+            SkySnackBar.error(title: "Register Failed", message: message);
           });
     }
   }

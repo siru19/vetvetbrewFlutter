@@ -1,20 +1,17 @@
+import 'package:cafe_management_system/core/utils/constants/colors.dart';
+import 'package:cafe_management_system/core/utils/constants/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils/constants/colors.dart';
-import '../../utils/constants/messages.dart';
-
-class GearSnackBar {
+class SkySnackBar {
   static success({String? title, String? message}) {
     Get.snackbar(
       title ?? "Success",
       message ?? Messages.successMessage,
       snackPosition: SnackPosition.TOP,
       margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      backgroundColor: AppColors.primary.withOpacity(0.5),
+      backgroundColor: Colors.green,
       colorText: Colors.white,
-      animationDuration: const Duration(milliseconds: 200),
-      barBlur: 16.0,
     );
   }
 
@@ -24,10 +21,8 @@ class GearSnackBar {
       message ?? Messages.error1,
       snackPosition: SnackPosition.TOP,
       margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      backgroundColor: Colors.red.withOpacity(0.7),
+      backgroundColor: AppColors.redColor,
       colorText: Colors.white,
-      animationDuration: const Duration(milliseconds: 200),
-      barBlur: 16.0,
     );
   }
 
@@ -37,7 +32,7 @@ class GearSnackBar {
       message,
       snackPosition: SnackPosition.TOP,
       margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      backgroundColor: AppColors.lightGrey,
+      backgroundColor: AppColors.primary,
       colorText: Colors.white,
     );
   }
