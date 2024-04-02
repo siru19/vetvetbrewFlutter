@@ -27,8 +27,21 @@ class Api {
   static final String productsByCategoryId =
       "$baseUrl$prefix/products-by-category?id=#id#";
 
+
+
+  static final String getProductById =
+      "$baseUrl/products-by-id?id=#id#";
+
   //cafe menu
   static final String menu = "$baseUrl$prefix/menu";
   static final String tables = "$baseUrl$prefix/tables";
   static final String tableReservation = "$baseUrl$prefix/tables/reservation";
+
+  // cart
+
+  static final String cart = "$baseUrl$prefix/cart";
+  static final String addToCart = "$baseUrl$prefix/add-to-cart";
+  static final String deleteCartItem = "$baseUrl$prefix/delete-cart-item";
+    static final String updateCartItem = "$baseUrl$prefix/update-cart-item";
+
 }

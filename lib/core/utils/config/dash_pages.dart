@@ -8,10 +8,12 @@
 // import 'package:chalchitra2/features/screens/movie/seat_book_screen.dart';
 // import 'package:get/get.dart';
 
+import 'package:cafe_management_system/core/controllers/dashscreen/cart/cart_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/dash_page_manager_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/menu/menu_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/profile/profile_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/table/table_controller.dart';
+import 'package:cafe_management_system/features/screens/cart/cart_screen.dart';
 import 'package:cafe_management_system/features/screens/favourites/controller/favourite_controller.dart';
 import 'package:cafe_management_system/features/screens/product/controller/product_controller.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
@@ -34,6 +36,7 @@ final List<GetPage> dashScreenPages = <GetPage>[
         Get.lazyPut(() => CafeMenuItemsController());
         Get.lazyPut(() => TableController());
         Get.lazyPut(() => ProfileController());
+        Get.lazyPut(() => CartController());
 
         // Get.lazyPut(() => ProfileController());
         // Get.lazyPut(() => ProfileController());
@@ -59,6 +62,16 @@ final List<GetPage> dashScreenPages = <GetPage>[
     binding: BindingsBuilder(
       () {
         Get.lazyPut(() => FavouriteController());
+      },
+    ),
+  ),
+
+  GetPage(
+    name: CartScreen.routeName,
+    page: () => CartScreen(),
+    binding: BindingsBuilder(
+      () {
+        Get.lazyPut(() => CartController());
       },
     ),
   ),

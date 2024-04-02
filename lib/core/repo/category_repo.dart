@@ -95,4 +95,32 @@ class Categoryrepo {
       onError(Messages.error);
     }
   }
+
+  static Future<void> getProductById({
+    required int productId,
+    required Function(CafeItem item) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = (Api.getProductById.replaceAll("#id#", productId.toString()));
+
+      http.Response response = await SkyRequest.get(
+        url,
+      );
+      print("---------------response$response}");
+      var data = json.decode(response.body);
+      print(data);
+      if (data["status"]) {
+        var item = CafeItem.fromJson(data['data']);
+
+        print("---cate${item}");
+        onSuccess(item);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.getProductById, error: e, stackTrace: s);
+      onError(Messages.error);
+    }
+  }
 }

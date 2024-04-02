@@ -14,6 +14,8 @@ class IconPath {
   static const String unauthenticated = "$basePath/unauthenticated.svg";
   static const String unAuth = "$basePath/unAuth.svg";
   static const String logout = "$basePath/logout.svg";
+  static const String coffeeMachine = "$basePath/coffeeMachine.svg";
+
   static const String map = "$basePath/map.svg";
   static const String smoothies = "$basePath/smoothies.svg";
   static const String table = "$basePath/table.svg";

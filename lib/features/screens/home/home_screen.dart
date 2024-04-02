@@ -7,6 +7,7 @@ import 'package:cafe_management_system/core/widgets/common/custom_text_style.dar
 import 'package:cafe_management_system/core/widgets/common/network_imge.dart';
 import 'package:cafe_management_system/core/widgets/common/text_form_field.dart';
 import 'package:cafe_management_system/core/widgets/shimmer/product_shimmer.dart';
+import 'package:cafe_management_system/features/screens/cart/cart_screen.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,12 +34,17 @@ class HomeScreen extends StatelessWidget {
         actions: [
           InkResponse(
             onTap: () {
-              print(c.itemList);
-              // c.getAllCategories();
-              // getData();
+              Get.toNamed(CartScreen.routeName);
             },
-            child: SvgPicture.asset(IconPath.notifi),
-          )
+            child: SvgPicture.asset(
+              IconPath.coffeeMachine,
+              height: 20,
+              width: 20,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
         ],
       ),
       body: Padding(
@@ -303,7 +309,9 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(ProductDetailScreen.routeName);
+        Get.toNamed(ProductDetailScreen.routeName, arguments: {
+          "cafeItem": cafeItem,
+        });
       },
       child: Container(
         padding: const EdgeInsets.only(left: 6, right: 6, top: 4, bottom: 6),
@@ -392,17 +400,20 @@ class ItemCard extends StatelessWidget {
                     const SizedBox(
                       height: 4,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        "Order Now",
-                        style: CustomTextStyles.f14W300(
-                            color: AppColors.whiteColor),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          "View Details",
+                          style: CustomTextStyles.f14W300(
+                              color: AppColors.whiteColor),
+                        ),
                       ),
                     )
                   ],

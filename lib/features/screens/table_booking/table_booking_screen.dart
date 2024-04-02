@@ -42,9 +42,9 @@ class TableBookingScreen extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2, // number of items in each row
-                              mainAxisSpacing: 20, // spacing between rows
-                              crossAxisSpacing: 20,
-                              childAspectRatio: 0.9 // spacing between columns
+                              mainAxisSpacing: 10, // spacing between rows
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 0.7 // spacing between columns
                               ),
                       itemCount: c.tableList.length,
                       itemBuilder: (context, index) {
@@ -97,9 +97,25 @@ class TableBookingScreen extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(IconPath.tableBooking),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 5,
                                 ),
-                                Text(table.name ?? "Table A")
+                                Text(table.name ?? "Table A"),
+                                if (table.reservation != null)
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      if (table.reservation?.date != null)
+                                        Text(
+                                            "Date: ${table.reservation?.date.toString()}"),
+                                      if (table.reservation?.time != null)
+                                        Text(
+                                            "Time: ${table.reservation?.time.toString()}"),
+                                      if (table.reservation != null)
+                                        Text(
+                                            "No. of Guests: ${table.reservation?.guestCount.toString()}")
+                                    ],
+                                  ),
                               ],
                             ),
                           ),
