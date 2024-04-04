@@ -26,6 +26,8 @@ class IconPath {
 
   static const String unlock = "$basePath/unlock.svg";
   static const String minus = "$basePath/minus.svg";
+  static const String addToCart = "$basePath/addToCart.svg";
+
   static const String plus = "$basePath/plus.svg";
   //cafe mgmt icons
   static const String cupLogo = "$basePath/cup_logo.svg";

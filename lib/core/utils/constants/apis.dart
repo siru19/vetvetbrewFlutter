@@ -36,6 +36,8 @@ class Api {
   static final String menu = "$baseUrl$prefix/menu";
   static final String tables = "$baseUrl$prefix/tables";
   static final String tableReservation = "$baseUrl$prefix/tables/reservation";
+  static final String getAvailableReservationTables =
+      "$baseUrl$prefix/tables/available";
 
   // cart
 

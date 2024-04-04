@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 
 class TableController extends GetxController {
   RxList<TableModelModel> tableList = RxList();
+  RxList<TableModelModel> availableTablesList = RxList();
+
   Rx<PageState> pageState = PageState.LOADING.obs;
   ProgressDialog loading = ProgressDialog();
   Rxn<TableModelModel> table = Rxn();
@@ -17,6 +19,7 @@ class TableController extends GetxController {
   @override
   void onInit() {
     getAlltables();
+    getAVailabletables();
     super.onInit();
   }
 
@@ -28,6 +31,24 @@ class TableController extends GetxController {
           pageState.value = PageState.EMPTY;
         } else {
           tableList.addAll(tables);
+          pageState.value = PageState.NORMAL;
+        }
+      },
+      onError: (message) {
+        pageState.value = PageState.ERROR;
+        LogHelper.error(message);
+      },
+    );
+  }
+
+  void getAVailabletables() async {
+    availableTablesList.clear();
+    await TableRepo.getAvailableTables(
+      onSuccess: (availableTables) {
+        if (availableTables.isEmpty) {
+          pageState.value = PageState.EMPTY;
+        } else {
+          availableTablesList.addAll(availableTables);
           pageState.value = PageState.NORMAL;
         }
       },

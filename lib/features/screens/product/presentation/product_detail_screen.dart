@@ -1,7 +1,7 @@
+import 'package:cafe_management_system/core/controllers/dashscreen/cart/cart_controller.dart';
 import 'package:cafe_management_system/core/utils/constants/apis.dart';
 import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
-import 'package:cafe_management_system/core/widgets/common/button.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:cafe_management_system/features/screens/product/controller/product_controller.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,7 @@ import '../../../../core/widgets/common/network_imge.dart';
 class ProductDetailScreen extends StatelessWidget {
   static const String routeName = "/product-detail";
   final c = Get.find<ProductDetailController>();
+  final cartController = Get.put(CartController());
   ProductDetailScreen({super.key});
 
   @override
@@ -143,6 +144,7 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Obx(
                 () => Expanded(
@@ -216,18 +218,70 @@ class ProductDetailScreen extends StatelessWidget {
               const SizedBox(
                 width: 4,
               ),
-              Expanded(
-                flex: 1,
-                child: PrimaryElevatedButton(
-                  // width: 20,
-                  onPressed: () {
-                    c.addtoCart();
-                  },
-                  title: "Add to Cart",
-                  color: AppColors.primary,
-                  height: 40,
-                  // width: 50,
-                  textStyle: CustomTextStyles.f14W500(color: Colors.white),
+              Obx(
+                () => cartController.cartList.isNotEmpty
+                    ? Text(
+                        cartController.cartList[0].tableModelModel?.name ?? "")
+                    : Obx(
+                        () {
+                          if (c.selectedTable.value != null) {
+                            return Expanded(
+                              flex: 2,
+                              child: Text(
+                                "Selected Table: ${c.selectedTable.value?.name}",
+                                style: CustomTextStyles.f16W600(
+                                    color: AppColors.primary),
+                              ),
+                            );
+                          } else {
+                            return const Text("Please select table");
+                          }
+                        },
+                      ),
+              ),
+              // Expanded(
+              //   flex: 1,
+              //   child: PrimaryElevatedButton(
+              //     // width: 20,
+              //     onPressed: () {
+              //       c.addtoCart();
+              //     },
+              //     title: "Add to Cart",
+              //     color: AppColors.primary,
+              //     height: 40,
+              //     // width: 50,
+              //     textStyle: CustomTextStyles.f14W500(color: Colors.white),
+              //   ),
+              // ),
+              const SizedBox(
+                width: 6,
+              ),
+              InkResponse(
+                onTap: () {
+                  // c.addtoCart();
+                  if (cartController.cartList.isNotEmpty) {
+                    c.selectedTable.value =
+                        cartController.cartList[0].tableModelModel;
+                  }
+                  // else {
+                  //   c.selectedTable.value = null;
+                  // }
+                  c.openTableSelectBottomSheet();
+                },
+                radius: 10,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.rectangle,
+                    color: AppColors.lightGrey,
+                  ),
+                  child: SvgPicture.asset(
+                    IconPath.addToCart,
+                    height: 20,
+                    width: 20,
+                  ),
                 ),
               ),
               const SizedBox(

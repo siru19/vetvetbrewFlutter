@@ -1,8 +1,13 @@
 import 'package:cafe_management_system/core/model/item_model.dart';
+import 'package:cafe_management_system/core/model/table/table_model.dart';
+import 'package:cafe_management_system/core/repo/cart_repo.dart';
 import 'package:cafe_management_system/core/repo/category_repo.dart';
 import 'package:cafe_management_system/core/utils/helpers/log_helper.dart';
 import 'package:cafe_management_system/core/widgets/custom/app_snackbar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../presentation/select_table_available_bottom_sheet.dart';
 
 class ProductDetailController extends GetxController {
   Rxn<CafeItem> cafeItem = Rxn();
@@ -39,19 +44,54 @@ class ProductDetailController extends GetxController {
   }
 
   void addtoCart() async {
-    print(cafeItem.value?.id);
-    print(itemQuantity.value);
-    // CartRepo.addToCart(
-    //     productId: cafeItem.value!.id!,
-    //     quantity: itemQuantity.value,
-    //     onSuccess: (message) {
-    //       SkySnackBar.success(title: "Cart", message: message);
-    //     },
-    //     onError: (message) {
-    //       SkySnackBar.error(title: "Error Occurred", message: message);
-    //     });
+    if (selectedTable.value == null) {
+      SkySnackBar.error(
+          title: "Error Occurred", message: "Please select table first");
+    } else {
+      CartRepo.addToCart(
+          productId: cafeItem.value!.id!.toString(),
+          quantity: itemQuantity.value.toString(),
+          tableId: selectedTable.value!.id.toString(),
+          onSuccess: (message) {
+            SkySnackBar.success(title: "Cart", message: message);
+          },
+          onError: (message) {
+            SkySnackBar.error(title: "Error Occurred", message: message);
+          });
+    }
+    // openTableSelectBottomSheet();
   }
-}
+
+  // RxnString selectedTableName = RxnString();
+  Rxn<TableModelModel> selectedTable = Rxn();
+
+  openTableSelectBottomSheet() async {
+    // selectedTable.value =
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: Get.context!,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: SelectTableBottomSheet(
+            onSelectTable: (tableModelModel) {
+              // roomTypeController.text = roomType.title.toString();
+              selectedTable.value = tableModelModel;
+              // this.roomType.value = roomType;
+              // if (crudState.value == CRUDSTATE.UPDATE) {
+              //   updateIndex.value = roomType
+              //       .id; //instaed of new variable id assing  the id to roomType
+              //
+            },
+            cafeitem: cafeItem.value,
+            itemquantity: itemQuantity.value,
+          ),
+        );
+      },
+    );
+  }
 
   // void getEventDetail() async {
   //   print(event.value?.id);
@@ -73,3 +113,4 @@ class ProductDetailController extends GetxController {
   //         message: "Something went wrong while fetching detail page");
   //   }
   // }
+}

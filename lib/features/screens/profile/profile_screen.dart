@@ -67,7 +67,7 @@ class ProfileScreen extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: const SkyNetworkImage(
-                    imageUrl: "https://picsum.photos/200/300",
+                    imageUrl: "",
                     width: 60,
                     height: 60,
                     boxFit: BoxFit.fill,
@@ -80,8 +80,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      c.coreController.currentUser.value?.name ??
-                          "Guest Account",
+                      c.coreController.currentUser.value?.name ?? "",
                       style: CustomTextStyles.f20W600(),
                     ),
                     Text(
