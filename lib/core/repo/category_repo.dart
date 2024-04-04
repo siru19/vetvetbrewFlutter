@@ -102,23 +102,28 @@ class Categoryrepo {
     required Function(String message) onError,
   }) async {
     try {
-      String url = (Api.getProductById.replaceAll("#id#", productId.toString()));
+      // String url = (Api.productsByCategoryId.replaceAll("#id#", productId));
+      String url = "${Api.getProductById}?id=$productId";
+
+      // String url =
+      //     (Api.getProductById.replaceAll("#id#", productId.toString()));
 
       http.Response response = await SkyRequest.get(
         url,
       );
-      print("---------------response$response}");
+      print("---------------api get product by id--------------$response}");
       var data = json.decode(response.body);
       print(data);
       if (data["status"]) {
         var item = CafeItem.fromJson(data['data']);
-
-        print("---cate${item}");
-        onSuccess(item);
+        print("bianyak pokhrel");
+        // print("---cate${item}");
+        // onSuccess(item);
       } else {
         onError(data['message']);
       }
     } catch (e, s) {
+      print('------------------hahah');
       LogHelper.error(Api.getProductById, error: e, stackTrace: s);
       onError(Messages.error);
     }

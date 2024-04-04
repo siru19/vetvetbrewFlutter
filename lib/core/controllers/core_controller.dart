@@ -1,11 +1,9 @@
-
-
 import 'package:cafe_management_system/core/model/user_model.dart';
 import 'package:cafe_management_system/core/utils/helpers/log_helper.dart';
 import 'package:cafe_management_system/core/utils/helpers/storage_helper.dart';
+import 'package:cafe_management_system/features/screens/auth/login_screen.dart';
 import 'package:get/get.dart';
 
-import '../../features/screens/dashscreen/dashboard_panel.dart';
 import '../widgets/custom/app_progress_dialog.dart';
 
 class CoreController extends GetxController {
@@ -53,7 +51,7 @@ class CoreController extends GetxController {
     loadCurrentUser();
     loading.hide();
 
-    Get.offAllNamed(DashPageManager.routeName);
+    Get.offAllNamed(LoginScreen.routeName);
   }
 
 //   // Future<bool> checkCameraPermission() async {

@@ -1,5 +1,4 @@
 import 'package:cafe_management_system/core/widgets/common/button.dart';
-import 'package:cafe_management_system/features/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -30,7 +29,7 @@ class ResetPasswordScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Form(
-          // key: c.resetPwKey,
+          key: c.resetPwKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -65,8 +64,8 @@ class ResetPasswordScreen extends StatelessWidget {
                     obscureText: !c.showPass.value,
                     eyeClick: c.onEyeClick,
                     controller: c.passwordController,
-  validator: (value) =>
-                                Validator.validatePassword(value!),                    onSubmitted: (_) {
+                    validator: (value) => Validator.validatePassword(value!),
+                    onSubmitted: (_) {
                       c.conPassNode.requestFocus();
                     },
                   ),
@@ -104,8 +103,8 @@ class ResetPasswordScreen extends StatelessWidget {
                 ),
                 PrimaryElevatedButton(
                     onPressed: () {
-                      // c.onReset();
-                      Get.toNamed(LoginScreen.routeName);
+                      c.onReset();
+                      // Get.toNamed(LoginScreen.routeName);
                     },
                     title: "Submit")
               ],

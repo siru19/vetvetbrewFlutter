@@ -10,7 +10,11 @@
 
 import 'dart:async';
 
+import 'package:cafe_management_system/core/repo/auth_repo.dart';
+import 'package:cafe_management_system/core/utils/constants/messages.dart';
 import 'package:cafe_management_system/core/widgets/custom/app_progress_dialog.dart';
+import 'package:cafe_management_system/core/widgets/custom/app_snackbar.dart';
+import 'package:cafe_management_system/features/screens/auth/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,17 +26,17 @@ class OtpVerifyController extends GetxController {
 
   final ProgressDialog loading = ProgressDialog();
 
-//   RxnString tokenOfUser = RxnString();
-//   // RxnString emailString = RxnString();
+  RxnString tokenOfUser = RxnString();
+  RxnString emailString = RxnString();
   @override
   void onInit() {
     startTimer();
-    // var args = Get.arguments;
+    var args = Get.arguments;
 
-    // if (args != null) {
-    //   tokenOfUser.value = args['token'];
-    //   // emailString.value = args['email'];
-    // }
+    if (args != null) {
+      tokenOfUser.value = args['token'];
+      emailString.value = args['email'];
+    }
 
     super.onInit();
   }
@@ -65,35 +69,32 @@ class OtpVerifyController extends GetxController {
     super.dispose();
   }
 
-//   Future<void> verifyOtp() async {
-//     print(tokenOfUser);
-//     print(pinController.text);
-//     if (tokenOfUser.value != null) {
-//       loading.show();
+  Future<void> verifyOtp() async {
+    print(tokenOfUser);
+    print(pinController.text);
+    if (tokenOfUser.value != null) {
+      loading.show();
 
-//       await AuthRepo.verifyOtp(
-//           otp: pinController.text,
-//           userToken: tokenOfUser.value.toString(),
-//           onSuccess: (message) {
-//             loading.hide();
-//             Get.offAllNamed(
-//               ResetPasswordScreen.routeName,
-//               arguments: {
-//                 "otp":pinController.text,
-//                 "token":tokenOfUser.value,
-//               }
-//             );
-//             GearSnackBar.success(title: "OTP verified", message: message);
-//           },
-//           onError: (message) {
-//             loading.hide();
+      await AuthRepo.verifyOtp(
+          otp: pinController.text,
+          userToken: tokenOfUser.value.toString(),
+          onSuccess: (message) {
+            loading.hide();
+            Get.offAllNamed(ResetPasswordScreen.routeName, arguments: {
+              "otp": pinController.text,
+              "token": tokenOfUser.value,
+            });
+            SkySnackBar.success(title: "OTP verified", message: message);
+          },
+          onError: (message) {
+            loading.hide();
 
-//             GearSnackBar.error(title: "OTP Verification", message: message);
-//           });
-//     } else {
-//       GearSnackBar.error(title: "OTP Verification", message: Messages.error);
-//     }
-//   }
+            SkySnackBar.error(title: "OTP Verification", message: message);
+          });
+    } else {
+      SkySnackBar.error(title: "OTP Verification", message: Messages.error);
+    }
+  }
 
 //   Future<void> resendOtp() async {
 //     // loading.show();

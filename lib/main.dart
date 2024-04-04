@@ -1,5 +1,6 @@
 import 'package:cafe_management_system/core/utils/constants/theme.dart';
 import 'package:cafe_management_system/features/screens/dashscreen/dashboard_panel.dart';
+import 'package:cafe_management_system/features/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -31,8 +32,8 @@ class Cafe extends StatelessWidget {
     return GetMaterialApp(
       theme: CustomTheme.basicTheme(),
       debugShowCheckedModeBanner: false,
-      // initialRoute: SplashScreen.routeName,
-      initialRoute: DashPageManager.routeName,
+      initialRoute: SplashScreen.routeName,
+      // initialRoute: DashPageManager.routeName,
       getPages: getPages,
     );
   }

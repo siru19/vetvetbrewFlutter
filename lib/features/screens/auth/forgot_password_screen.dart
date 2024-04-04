@@ -2,7 +2,6 @@ import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/button.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
-import 'package:cafe_management_system/features/screens/auth/otp_verify_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -81,7 +80,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                 ),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    Get.toNamed(OTPVerifyScreen.routeName);
+                    // Get.toNamed(OTPVerifyScreen.routeName);
+                    c.onSubmit();
                   },
                   title: "Next",
                 ),

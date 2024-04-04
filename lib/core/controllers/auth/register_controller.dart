@@ -21,22 +21,27 @@ class RegisterController extends GetxController {
 
   RxBool showPass = RxBool(false);
   RxBool showConPass = RxBool(false);
-//   final FocusNode passNode = FocusNode();
-//   final FocusNode conPassNode = FocusNode();
-//   void onEyeClick() {
-//     showPass.value = !showPass.value;
-//   }
+  final FocusNode passNode = FocusNode();
+  final FocusNode conPassNode = FocusNode();
+  void onEyeClick() {
+    showPass.value = !showPass.value;
+  }
+
+  void onConEyeClick() {
+    showConPass.value = !showConPass.value;
+  }
 
   Future<void> onSubmit() async {
+    RegisterRequestParams regParams = RegisterRequestParams(
+      name: usernameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      passwordConfirmation: conPasswordController.text,
+      phoneNo: phoneController.text,
+    );
     if (registerKey.currentState!.validate()) {
       loading.show();
-      RegisterRequestParams regParams = RegisterRequestParams(
-        name: usernameController.text,
-        email: emailController.text,
-        password: passwordController.text,
-        passwordConfirmation: conPasswordController.text,
-        phoneNo: phoneController.text,
-      );
+
       await AuthRepo.register(
           registerRequestParams: regParams,
           onSuccess: (user) {

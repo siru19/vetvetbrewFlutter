@@ -102,12 +102,25 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                PrimaryTextField(
-                  hint: "Password",
-                  validator: (value) => Validator.validatePassword(value!),
-                  controller: c.passwordController,
-                  textInputAction: TextInputAction.next,
-                  textInputType: TextInputType.emailAddress,
+                Obx(
+                  () => PrimaryTextField(
+                    focusNode: c.passNode,
+                    hint: "Password",
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r"[a-zA-Z0-9!@#\$%&'*,\-_+.]"))
+                    ],
+                    obscureText: !c.showPass.value,
+                    validator: (value) => Validator.validatePassword(value!),
+                    controller: c.passwordController,
+                    textInputAction: TextInputAction.next,
+                    textInputType: TextInputType.emailAddress,
+                    eyeClick: c.onEyeClick,
+                    onSubmitted: (_) {
+                      // c.conPassNode.requestFocus();
+                    },
+                    onValueChange: (String value) {},
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
@@ -119,13 +132,32 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                PrimaryTextField(
-                  hint: "Confirm Password",
-                  validator: (value) => Validator.validatePassword(value!),
-                  controller: c.conPasswordController,
-                  textInputAction: TextInputAction.next,
-                  textInputType: TextInputType.emailAddress,
-                ),
+
+                Obx(() => PrimaryTextField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r"[a-zA-Z0-9!@#\$%&'*,\-_+.]"))
+                      ],
+                      hint: "Confirm Password",
+                      focusNode: c.conPassNode,
+                      onSubmitted: (_) => c.onSubmit(),
+                      obscureText: !c.showConPass.value,
+                      eyeClick: c.onConEyeClick,
+                      controller: c.conPasswordController,
+                      textInputType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        var checkPassword = Validator.validatePassword(value!);
+                        if (checkPassword != null) {
+                          return checkPassword;
+                        }
+
+                        if (c.passwordController.text != value) {
+                          return "Password does not match";
+                        }
+                        return null;
+                      },
+                    )),
                 const SizedBox(
                   height: 37,
                 ),

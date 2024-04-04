@@ -1,5 +1,6 @@
 import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
+import 'package:cafe_management_system/core/widgets/common/common_alert.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:cafe_management_system/features/screens/favourites/presentation/favourites_screen.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/presentation/recent_order_screen.dart';
@@ -138,19 +139,35 @@ class ProfileScreen extends StatelessWidget {
                 ProfileTiles(
                   onTap: () {},
                   title: "About Us",
+                  iconUrl: IconPath.aboutUs,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 ProfileTiles(
-                  title: "Contact",
+                  title: "Change Password",
                   onTap: () {},
+                  iconUrl: IconPath.lock,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 ProfileTiles(
-                  onTap: () {},
+                  iconUrl: IconPath.logout,
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext ctx) {
+                          return CustomAlertDialog(
+                            // title: "Logout Confirmation",
+                            message: "Are you sure to logout?",
+                            onConfirm: () {
+                              c.coreController.logOut();
+                            },
+                            confirmText: "Logout",
+                          );
+                        });
+                  },
                   title: "Log out",
                 ),
               ],

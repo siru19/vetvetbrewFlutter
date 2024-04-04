@@ -1,4 +1,3 @@
-import 'package:cafe_management_system/features/screens/auth/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -73,7 +72,7 @@ class OTPVerifyScreen extends StatelessWidget {
                       Directionality(
                         textDirection: TextDirection.ltr,
                         child: Pinput(
-                          length: 6,
+                          length: 5,
                           controller: c.pinController,
                           focusNode: c.focusNode,
                           androidSmsAutofillMethod:
@@ -123,9 +122,9 @@ class OTPVerifyScreen extends StatelessWidget {
                       ),
                       PrimaryElevatedButton(
                         onPressed: () {
-                          // c.focusNode.unfocus();
-                          // c.verifyOtp();
-                          Get.toNamed(ResetPasswordScreen.routeName);
+                          c.focusNode.unfocus();
+                          c.verifyOtp();
+                          // Get.toNamed(ResetPasswordScreen.routeName);
                         },
                         title: "Submit",
                       ),
@@ -157,7 +156,7 @@ class OTPVerifyScreen extends StatelessWidget {
                                 child: Text(
                                   "Resend in ${c.remainingMinutes.value} : ${c.remainingSeconds.value}",
                                   style: CustomTextStyles.f16W400(
-                                      color: AppColors.whiteColor),
+                                      color: AppColors.blackColor),
                                 ),
                               );
                             }

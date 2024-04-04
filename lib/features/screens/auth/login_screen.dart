@@ -5,7 +5,6 @@ import 'package:cafe_management_system/core/widgets/common/button.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:cafe_management_system/features/screens/auth/forgot_password_screen.dart';
 import 'package:cafe_management_system/features/screens/auth/register/presentation/register_screen.dart';
-import 'package:cafe_management_system/features/screens/dashscreen/dashboard_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -74,12 +73,19 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
-                  PrimaryTextField(
-                    hint: "Password",
-                    validator: (value) => Validator.validatePassword(value!),
-                    controller: c.passwordController,
-                    textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.emailAddress,
+                  Obx(
+                    () => PrimaryTextField(
+                      hint: "Password",
+
+                      obscureText: !c.showPass.value,
+                      validator: (value) => Validator.validatePassword(value!),
+                      controller: c.passwordController,
+                      textInputAction: TextInputAction.done,
+                      textInputType: TextInputType.emailAddress,
+                      eyeClick: c.onEyeClick,
+
+                      // prefixIcon: Icon(Icons.email),
+                    ),
                   ),
                   const SizedBox(
                     height: 6,
@@ -103,10 +109,10 @@ class LoginScreen extends StatelessWidget {
                     height: 37,
                   ),
                   PrimaryElevatedButton(
-                    // onPressed: c.onSubmit,
-                    onPressed: () {
-                      Get.toNamed(DashPageManager.routeName);
-                    },
+                    onPressed: c.onSubmit,
+                    // onPressed: () {
+                    //   Get.toNamed(DashPageManager.routeName);
+                    // },
                     title: "Log in",
                   ),
                   const SizedBox(

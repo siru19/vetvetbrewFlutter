@@ -13,12 +13,15 @@ class ProductDetailController extends GetxController {
     if (args != null) {
       cafeItem.value = args['cafeItem'];
     }
+    getProductDetail();
     super.onInit();
   }
 
   RxInt itemQuantity = RxInt(1);
 
   void getProductDetail() async {
+    print(
+        '--------------------------------------------------api hit getproductdetail');
     if (cafeItem.value?.id != null) {
       Categoryrepo.getProductById(
           productId: cafeItem.value!.id!,
