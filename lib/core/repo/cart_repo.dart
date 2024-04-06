@@ -33,7 +33,7 @@ class CartRepo {
   static Future<void> addToCart({
     required String productId,
     required String quantity,
-    required String tableId,
+    // required String tableId,
     required Function(String message) onSuccess,
     required Function(String message) onError,
   }) async {

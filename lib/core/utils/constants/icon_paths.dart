@@ -12,12 +12,18 @@ class IconPath {
   static const String upcoming = "$basePath/upcoming.svg";
   static const String user = "$basePath/user.svg";
   static const String lock = "$basePath/lock.svg";
+  static const String empty = "$basePath/empty.svg";
+
   static const String aboutUs = "$basePath/aboutUs.svg";
+  static const String error = "$basePath/error.svg";
 
   static const String unauthenticated = "$basePath/unauthenticated.svg";
   static const String unAuth = "$basePath/unAuth.svg";
+  static const String khalti = "$basePath/khalti.svg";
+
   static const String logout = "$basePath/logout.svg";
   static const String coffeeMachine = "$basePath/coffeeMachine.svg";
+  static const String searching = "$basePath/searching.svg";
 
   static const String map = "$basePath/map.svg";
   static const String smoothies = "$basePath/smoothies.svg";

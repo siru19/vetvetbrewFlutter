@@ -46,6 +46,8 @@ dependencies:
   shimmer: ^3.0.0
   pinput: ^4.0.0
   flutter_datetime_picker_bdaya: ^3.0.2
+  khalti: ^2.0.0
+  khalti_flutter: ^3.0.0
 
 dev_dependencies:
   flutter_test:

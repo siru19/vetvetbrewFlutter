@@ -1,16 +1,20 @@
 import 'package:cafe_management_system/core/model/cart/cart_model.dart';
+import 'package:cafe_management_system/core/model/order/cafe_checkout_request_params.dart';
+import 'package:cafe_management_system/core/model/table/table_model.dart';
 import 'package:cafe_management_system/core/repo/cart_repo.dart';
+import 'package:cafe_management_system/core/repo/order_repo.dart';
 import 'package:cafe_management_system/core/utils/constants/enums.dart';
 import 'package:cafe_management_system/core/utils/helpers/log_helper.dart';
 import 'package:cafe_management_system/core/widgets/custom/app_progress_dialog.dart';
 import 'package:cafe_management_system/core/widgets/custom/app_snackbar.dart';
+import 'package:cafe_management_system/features/screens/cart/show_available_table_sheet.dart';
 import 'package:cafe_management_system/features/screens/cart/update_bottom_sheet.dart';
+import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
   RxList<CartModel> cartList = RxList();
-  // RxList<Items> cartItems = RxList();
   Rx<PageState> pageState = PageState.LOADING.obs;
   ProgressDialog loading = ProgressDialog();
 
@@ -116,5 +120,70 @@ class CartController extends GetxController {
         );
       },
     );
+  }
+
+  Rxn<TableModelModel> selectedTable = Rxn();
+  // Rxn<CafeItem> cafeItem = Rxn();
+  // RxInt itemQuantity = RxInt(1);
+
+  showAvailableTableBottomSheet() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: Get.context!,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: ShowAvailableTableSheet(
+            onSelectTable: (tableModelModel) {
+              selectedTable.value = tableModelModel;
+            },
+            // cafeitem: cafeItem.value,
+            cart: cartList.isNotEmpty ? cartList[0] : null,
+            // itemquantity: itemQuantity.value,
+          ),
+        );
+      },
+    );
+  }
+
+  // showCheckoutBottomSheet(CartModel cart) {
+  //   print("-------cart--------${cart.id}");
+  //   showModalBottomSheet(
+  //     isScrollControlled: true,
+  //     context: Get.context!,
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: EdgeInsets.only(
+  //           bottom: MediaQuery.of(context).viewInsets.bottom,
+  //         ),
+  //         child: CheckoutBottomSheet(),
+  //       );
+  //     },
+  //   );
+  // }
+  CafeCheckoutParams? cafeCheckoutParams;
+  Future<void> postCheckout(CafeCheckoutParams? cafeCheckoutParams) async {
+    loading.show();
+    await OrderRepo.checkout(
+        cafeCheckoutParams: cafeCheckoutParams,
+        onSuccess: (message) {
+          loading.hide();
+
+          Get.offNamed(MyOrdersScreen.routeName);
+
+          // Get.offNamed(DashPageManager
+          //     .routeName); //TODO :yo page le kam gareko xaina api hit hanna parxa yaha
+          SkySnackBar.success(
+              title: "Checkout Suceess ",
+              message: "Order checkout successfully");
+        },
+        onError: (message) {
+          loading.hide();
+
+          SkySnackBar.error(
+              title: "Checkout Failed ", message: "Order checkout Failed");
+        });
   }
 }

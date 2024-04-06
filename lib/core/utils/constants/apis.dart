@@ -23,6 +23,8 @@ class Api {
   // --------------
   static final String getCategories = "$baseUrl$prefix/product-categories";
   static final String getAllProducts = "$baseUrl$prefix/products";
+  static final String searchProducts =
+      "$baseUrl$prefix/search-products?search-term=#keyword#";
 
   static final String productsByCategoryId =
       "$baseUrl$prefix/products-by-category?id=#id#";
@@ -30,7 +32,7 @@ class Api {
   // static final String getProductById =
   //     "$baseUrl/products-by-id?id=#id#";
 
-  static final String getProductById = "$baseUrl/products-by-id";
+  static final String getProductById = "$baseUrl$prefix/products-by-id";
 
   //cafe menu
   static final String menu = "$baseUrl$prefix/menu";
@@ -45,4 +47,13 @@ class Api {
   static final String addToCart = "$baseUrl$prefix/add-to-cart";
   static final String deleteCartItem = "$baseUrl$prefix/delete-cart-item";
   static final String updateCartItem = "$baseUrl$prefix/update-cart-item";
+
+//order
+  static final String checkout = "$baseUrl$prefix/checkout";
+  static final String orders = "$baseUrl$prefix/orders";
+  static final String getMyReservedTables =
+      "$baseUrl$prefix/my-reserved-tables";
+
+        static final String unreserve = "$baseUrl$prefix/tables/unreserve";
+
 }

@@ -132,4 +132,14 @@ class TableController extends GetxController {
     }
     // }
   }
+
+
+
+
+
+
+
+
+
+ 
 }

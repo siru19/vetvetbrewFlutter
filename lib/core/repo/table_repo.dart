@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cafe_management_system/core/model/table/my_reserve_tabe.dart';
 import 'package:cafe_management_system/core/model/table/table_booking_response_model.dart';
 import 'package:cafe_management_system/core/model/table/table_model.dart';
 import 'package:cafe_management_system/core/utils/constants/apis.dart';
@@ -101,6 +102,64 @@ class TableRepo {
     } catch (e, s) {
       LogHelper.error(Api.getAvailableReservationTables,
           error: e, stackTrace: s);
+      onError(Messages.error);
+    }
+  }
+
+  static Future<void> getMyReserveTables({
+    required Function(List<MyReserveTable> myReservedTables) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = Api.getMyReservedTables;
+
+      http.Response response = await SkyRequest.get(
+        url,
+      );
+      var data = json.decode(response.body);
+      if (data["status"]) {
+        var myReservedTables = myReservedTableFromJson(data['data']);
+
+        onSuccess(myReservedTables);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.getMyReservedTables, error: e, stackTrace: s);
+      onError(Messages.error);
+    }
+  }
+
+  static Future<void> unreserveTable({
+    required int tableId,
+    required Function(String message) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = Api.unreserve;
+
+      print(url);
+
+      var body = {
+        "table_reservation_id": tableId,
+      };
+
+      http.Response response = await SkyRequest.post(
+        url,
+        body: body,
+      );
+      print("---------------response$response}");
+      var data = json.decode(response.body);
+      print(data);
+      if (data["status"]) {
+        var msg = data['data'];
+
+        onSuccess(msg);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.unreserve, error: e, stackTrace: s);
       onError(Messages.error);
     }
   }

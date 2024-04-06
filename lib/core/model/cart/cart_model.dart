@@ -1,5 +1,4 @@
 import 'package:cafe_management_system/core/model/item_model.dart';
-import 'package:cafe_management_system/core/model/table/table_model.dart';
 
 List<Items> itemsFromJson(List<dynamic> itemsJson) =>
     List<Items>.from(itemsJson.map((itemsJson) => Items.fromJson(itemsJson)));
@@ -16,7 +15,7 @@ class CartModel {
   String? updatedAt;
   int? itemsCount;
   List<Items>? items;
-  TableModelModel? tableModelModel;
+  // TableModelModel? tableModelModel;
 
   CartModel({
     this.id,
@@ -26,7 +25,7 @@ class CartModel {
     this.updatedAt,
     this.itemsCount,
     this.items,
-    this.tableModelModel,
+    // this.tableModelModel,
   });
 
   CartModel.fromJson(Map<String, dynamic> json) {
@@ -43,8 +42,8 @@ class CartModel {
       });
     }
 
-    tableModelModel =
-        json['table'] != null ? TableModelModel.fromJson(json['table']) : null;
+    // tableModelModel =
+    //     json['table'] != null ? TableModelModel.fromJson(json['table']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -59,9 +58,9 @@ class CartModel {
       data['items'] = this.items!.map((v) => v.toJson()).toList();
     }
 
-    if (this.tableModelModel != null) {
-      data['table'] = this.tableModelModel!.toJson();
-    }
+    // if (this.tableModelModel != null) {
+    //   data['table'] = this.tableModelModel!.toJson();
+    // }
     return data;
   }
 }

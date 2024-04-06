@@ -1,9 +1,13 @@
 import 'package:cafe_management_system/core/model/cart/cart_model.dart';
 import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/enums.dart';
+import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/button.dart';
 import 'package:cafe_management_system/core/widgets/common/common_alert.dart';
+import 'package:cafe_management_system/core/widgets/common/empty_view.dart';
+import 'package:cafe_management_system/core/widgets/common/error_view.dart';
 import 'package:cafe_management_system/core/widgets/common/network_imge.dart';
+import 'package:cafe_management_system/core/widgets/custom/app_snackbar.dart';
 import 'package:cafe_management_system/core/widgets/shimmer/product_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,94 +22,103 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        centerTitle: true,
-        title: const Text("Cart"),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Obx(() {
-                if (c.pageState.value == PageState.LOADING) {
-                  return CategoryShimmer.gearList();
-                } else if (c.pageState.value == PageState.EMPTY) {
-                  return const Center(
-                    child: Text("Empty"),
-                  );
-                } else if (c.pageState.value == PageState.NORMAL) {
-                  return ListView.separated(
-                    padding: const EdgeInsets.only(bottom: 50),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: c.cartList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      var cartItem = c.cartList[index];
-                      if (cartItem.items!.isNotEmpty) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListView.separated(
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(
-                                  height: 10,
-                                );
-                              },
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: cartItem.items!.length,
-                              itemBuilder: (context, itemIndex) {
-                                var item = cartItem.items![itemIndex];
-                                return CartRow(
-                                  item: item,
-                                  onEdit: () {
-                                    // c.cartItem.value = item;
-                                    // c.updateCartItem(item.id!);
-                                    c.showBottomSheet(item);
-                                  },
-                                  onConfirmDelete: () {
-                                    c.deleteCartItem(item.id!);
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          title: const Text("Cart"),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Obx(() {
+                  if (c.pageState.value == PageState.LOADING) {
+                    return CategoryShimmer.gearList();
+                  } else if (c.pageState.value == PageState.EMPTY) {
+                    return EmptyView(
+                      message: "Looks like there is no items in the cart",
+                      title: "No items at the moment",
+                      media: IconPath.empty,
+                    );
+                  } else if (c.pageState.value == PageState.NORMAL) {
+                    return ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: c.cartList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        var cartItem = c.cartList[index];
+                        if (cartItem.items!.isNotEmpty) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(
+                                    height: 10,
+                                  );
+                                },
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: cartItem.items!.length,
+                                itemBuilder: (context, itemIndex) {
+                                  var item = cartItem.items![itemIndex];
+                                  return CartRow(
+                                    item: item,
+                                    onEdit: () {
+                                      // c.cartItem.value = item;
+                                      // c.updateCartItem(item.id!);
+                                      c.showBottomSheet(item);
+                                    },
+                                    onConfirmDelete: () {
+                                      c.deleteCartItem(item.id!);
 
-                                    // print(item.id);
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        );
-                      } else {
-                        return const SizedBox(
-                          height: 10,
-                        );
-                      }
-                    },
-                    separatorBuilder: (context, index) =>
-                        Divider(), // Add your separator builder
-                  );
-                } else {
-                  return const Center(
-                    child: Text("Error View"),
-                  );
-                }
-              })
-            ],
+                                      // print(item.id);
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox(
+                            height: 10,
+                          );
+                        }
+                      },
+                      separatorBuilder: (context, index) =>
+                          Divider(), // Add your separator builder
+                    );
+                  } else {
+                    return ErrorView(
+                      message: "Might be internal server error",
+                      title: "Something went wrong",
+                      media: IconPath.empty,
+                    );
+                  }
+                })
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
-        child: PrimaryElevatedButton(
-          onPressed: () {
-            // Get.toNamed(CheckoutScreen.routeName,
-            //     arguments: {"cart": c.cart.value});
-          },
-          title: "Checkout",
-          height: 40,
-        ),
-      ),
-    );
+        bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Obx(() => c.cartList.isNotEmpty
+                ? PrimaryElevatedButton(
+                    onPressed: () {
+                      c.showAvailableTableBottomSheet();
+                    },
+                    title: "Checkout",
+                    height: 40,
+                  )
+                : PrimaryElevatedButton(
+                    onPressed: () {
+                      SkySnackBar.error(
+                          title: "Empty Cart",
+                          message: "Please add items to the cart");
+                    },
+                    title: "Checkout"))));
   }
 }
 

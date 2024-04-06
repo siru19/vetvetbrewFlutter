@@ -3,7 +3,8 @@ import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/common_alert.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:cafe_management_system/features/screens/favourites/presentation/favourites_screen.dart';
-import 'package:cafe_management_system/features/screens/recent_orders/presentation/recent_order_screen.dart';
+import 'package:cafe_management_system/features/screens/mytables/my_reserved_tablesList.dart';
+import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -106,10 +107,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileTiles(
                   onTap: () {
-                    Get.toNamed(RecentOrdersScreen.routeName);
+                    Get.toNamed(MyOrdersScreen.routeName);
                   },
                   iconUrl: IconPath.recentOrder,
-                  title: "Recent Orders",
+                  title: "My Orders",
                 ),
                 const SizedBox(
                   height: 10,
@@ -118,6 +119,16 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {},
                   iconUrl: IconPath.history,
                   title: "History",
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ProfileTiles(
+                  onTap: () {
+                    Get.toNamed(MyReservedTables.routeName);
+                  },
+                  iconUrl: IconPath.scan,
+                  title: "Un-Reserve Table",
                 ),
                 const SizedBox(
                   height: 10,

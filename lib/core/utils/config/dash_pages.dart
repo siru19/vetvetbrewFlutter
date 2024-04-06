@@ -10,15 +10,19 @@
 
 import 'package:cafe_management_system/core/controllers/dashscreen/cart/cart_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/dash_page_manager_controller.dart';
+import 'package:cafe_management_system/core/controllers/dashscreen/home/search_product_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/menu/menu_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/profile/profile_controller.dart';
 import 'package:cafe_management_system/core/controllers/dashscreen/table/table_controller.dart';
 import 'package:cafe_management_system/features/screens/cart/cart_screen.dart';
 import 'package:cafe_management_system/features/screens/favourites/controller/favourite_controller.dart';
+import 'package:cafe_management_system/features/screens/home/search_product_screen.dart';
+import 'package:cafe_management_system/features/screens/mytables/my_reserved_table_controller.dart';
+import 'package:cafe_management_system/features/screens/mytables/my_reserved_tablesList.dart';
 import 'package:cafe_management_system/features/screens/product/controller/product_controller.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
-import 'package:cafe_management_system/features/screens/recent_orders/controller/recent_order_controller.dart';
-import 'package:cafe_management_system/features/screens/recent_orders/presentation/recent_order_screen.dart';
+import 'package:cafe_management_system/features/screens/recent_orders/controller/my_orders_controller.dart';
+import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:get/get.dart';
 
 import '../../../features/screens/dashscreen/dashboard_panel.dart';
@@ -67,6 +71,16 @@ final List<GetPage> dashScreenPages = <GetPage>[
   ),
 
   GetPage(
+    name: SearchProductScreen.routeName,
+    page: () => SearchProductScreen(),
+    binding: BindingsBuilder(
+      () {
+        Get.lazyPut(() => SearchProductController());
+      },
+    ),
+  ),
+
+  GetPage(
     name: CartScreen.routeName,
     page: () => CartScreen(),
     binding: BindingsBuilder(
@@ -77,11 +91,21 @@ final List<GetPage> dashScreenPages = <GetPage>[
   ),
 
   GetPage(
-    name: RecentOrdersScreen.routeName,
-    page: () => RecentOrdersScreen(),
+    name: MyOrdersScreen.routeName,
+    page: () => MyOrdersScreen(),
     binding: BindingsBuilder(
       () {
-        Get.lazyPut(() => RecentOrderController());
+        Get.lazyPut(() => MyOrderController());
+      },
+    ),
+  ),
+
+  GetPage(
+    name: MyReservedTables.routeName,
+    page: () => MyReservedTables(),
+    binding: BindingsBuilder(
+      () {
+        Get.lazyPut(() => MyReservedTableController());
       },
     ),
   ),

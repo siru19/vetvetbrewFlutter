@@ -8,6 +8,7 @@ import 'package:cafe_management_system/core/widgets/common/network_imge.dart';
 import 'package:cafe_management_system/core/widgets/common/text_form_field.dart';
 import 'package:cafe_management_system/core/widgets/shimmer/product_shimmer.dart';
 import 'package:cafe_management_system/features/screens/cart/cart_screen.dart';
+import 'package:cafe_management_system/features/screens/home/search_product_screen.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -71,7 +72,11 @@ class HomeScreen extends StatelessWidget {
                 Icons.search,
                 color: AppColors.lightGrey,
               ),
-              hint: "Search...",
+              hint: "Search what your are looking for.....",
+              readOnly: true,
+              onTap: () {
+                Get.toNamed(SearchProductScreen.routeName);
+              },
               textInputAction: TextInputAction.done,
               textInputType: TextInputType.name,
             ),

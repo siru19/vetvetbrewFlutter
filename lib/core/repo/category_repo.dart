@@ -68,6 +68,35 @@ class Categoryrepo {
     }
   }
 
+  static Future<void> searchProducts({
+    String? keyword,
+    required Function(List<CafeItem> items) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      // String url = Api.searchEvents;
+      String url =
+          (Api.searchProducts.replaceAll("#keyword#", keyword.toString()));
+
+      http.Response response = await SkyRequest.get(
+        url,
+      );
+
+      dynamic data = json.decode(response.body);
+
+      if (data['status']) {
+        // var msg = data['message'];
+        var items = itemsFromJson(data['data']);
+        onSuccess(items);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.searchProducts, error: e, stackTrace: s);
+      onError(Messages.error);
+    }
+  }
+
   static Future<void> getItemsByCategoryId({
     required String categoryId,
     required Function(List<CafeItem> items) onSuccess,
@@ -97,20 +126,21 @@ class Categoryrepo {
   }
 
   static Future<void> getProductById({
-    required int productId,
+    required num productId,
     required Function(CafeItem item) onSuccess,
     required Function(String message) onError,
   }) async {
     try {
       // String url = (Api.productsByCategoryId.replaceAll("#id#", productId));
-      String url = "${Api.getProductById}?id=$productId";
+      // String url = "${Api.getProductById}?id=$productId";
 
-      // String url =
-      //     (Api.getProductById.replaceAll("#id#", productId.toString()));
+      String url = "${Api.getProductById}?id=$productId";
 
       http.Response response = await SkyRequest.get(
         url,
       );
+
+      print("-----------url to get product detail --------${url}");
       print("---------------api get product by id--------------$response}");
       var data = json.decode(response.body);
       print(data);
@@ -118,7 +148,7 @@ class Categoryrepo {
         var item = CafeItem.fromJson(data['data']);
         print("bianyak pokhrel");
         // print("---cate${item}");
-        // onSuccess(item);
+        onSuccess(item);
       } else {
         onError(data['message']);
       }

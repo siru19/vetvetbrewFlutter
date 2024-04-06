@@ -1,3 +1,4 @@
+import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -48,11 +49,11 @@ class EmptyView extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
-                color: Colors.white),
+                color: AppColors.primary),
             textAlign: TextAlign.center,
           ),
           Text(message,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: AppColors.primary),
               textAlign: TextAlign.center),
           SizedBox(height: 24.0),
           widget ?? Container()
