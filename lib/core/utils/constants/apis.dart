@@ -24,8 +24,10 @@ class Api {
   static final String getCategories = "$baseUrl$prefix/product-categories";
   static final String getAllProducts = "$baseUrl$prefix/products";
   static final String searchProducts =
-      "$baseUrl$prefix/search-products?search-term=#keyword#";
+      "$baseUrl$prefix/search-products?search_term=#keyword#";
 
+  // static final String searchCafeProducts =
+  //     "$baseUrl$prefix/search-products?search_term=perry";
   static final String productsByCategoryId =
       "$baseUrl$prefix/products-by-category?id=#id#";
 
@@ -54,6 +56,5 @@ class Api {
   static final String getMyReservedTables =
       "$baseUrl$prefix/my-reserved-tables";
 
-        static final String unreserve = "$baseUrl$prefix/tables/unreserve";
-
+  static final String unreserve = "$baseUrl$prefix/tables/unreserve";
 }

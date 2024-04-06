@@ -74,9 +74,10 @@ class Categoryrepo {
     required Function(String message) onError,
   }) async {
     try {
-      // String url = Api.searchEvents;
       String url =
           (Api.searchProducts.replaceAll("#keyword#", keyword.toString()));
+
+      // String url = "${Api.searcgCafeProducts}?search-term=$keyword";
 
       http.Response response = await SkyRequest.get(
         url,
@@ -87,6 +88,8 @@ class Categoryrepo {
       if (data['status']) {
         // var msg = data['message'];
         var items = itemsFromJson(data['data']);
+
+        print("--items--------${items}");
         onSuccess(items);
       } else {
         onError(data['message']);

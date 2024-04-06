@@ -50,26 +50,60 @@ class MyOrdersScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var orderItem = c.myOrdersList[index];
                         if (orderItem.items!.isNotEmpty) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ListView.separated(
-                                separatorBuilder: (context, index) {
-                                  return const SizedBox(
-                                    height: 10,
-                                  );
-                                },
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: orderItem.items!.length,
-                                itemBuilder: (context, itemIndex) {
-                                  var item = orderItem.items![itemIndex];
-                                  return RecentOrderRowWidget(
-                                    orderItem: item,
-                                  );
-                                },
-                              ),
-                            ],
+                          return Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  orderItem.referenceId != null
+                                      ? "Ref Id: ${orderItem.referenceId.toString()}"
+                                      : "",
+                                  style: CustomTextStyles.f14W400(
+                                      color: AppColors.blackColor),
+                                ),
+                                Text(
+                                  orderItem.grandTotal != null
+                                      ? "Rs. ${orderItem.grandTotal.toString()}"
+                                      : "",
+                                  style: CustomTextStyles.f14W400(
+                                      color: AppColors.blackColor),
+                                ),
+                                Divider(
+                                  color: AppColors.primary,
+                                ),
+                                ListView.separated(
+                                  separatorBuilder: (context, index) {
+                                    return const SizedBox(
+                                      height: 10,
+                                    );
+                                  },
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: orderItem.items!.length,
+                                  itemBuilder: (context, itemIndex) {
+                                    var item = orderItem.items![itemIndex];
+                                    return RecentOrderRowWidget(
+                                      orderItem: item,
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           );
                         } else {
                           return const SizedBox(
@@ -97,11 +131,15 @@ class RecentOrderRowWidget extends StatelessWidget {
   // final String? imageUrl;
   // final String? itemName;
   // final String? price;
+  // final String? grandTotal;
+  // final String? refrenceId;
 
   final OrderItems? orderItem;
   const RecentOrderRowWidget({
     super.key,
     this.orderItem,
+    // this.refrenceId,
+    // this.grandTotal
   });
 
   @override
@@ -132,6 +170,13 @@ class RecentOrderRowWidget extends StatelessWidget {
                     orderItem?.product?.name ?? "",
                     style:
                         CustomTextStyles.f16W500(color: AppColors.blackColor),
+                  ),
+                  Text(
+                    orderItem?.product?.price != null
+                        ? "price: ${orderItem?.product?.price}"
+                        : "",
+                    style:
+                        CustomTextStyles.f14W400(color: AppColors.blackColor),
                   ),
                   Text(
                     orderItem?.product?.price != null

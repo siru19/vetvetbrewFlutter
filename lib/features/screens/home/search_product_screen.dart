@@ -67,6 +67,7 @@ class SearchProductScreen extends StatelessWidget {
                   return SizedBox(
                     child: GridView.builder(
                       shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2, // number of items in each row
@@ -200,7 +201,7 @@ class SearchEventCard extends StatelessWidget {
                       height: 4,
                     ),
                     Text(
-                      item.price !=null ? "Price: ${item.price}" : "",
+                      item.price != null ? "Price: ${item.price}" : "",
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontSize: 14,
                             color: AppColors.blackColor,
