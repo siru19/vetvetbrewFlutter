@@ -12,30 +12,12 @@ void main() async {
 
   await GetStorage.init();
   Get.put(CoreController());
-  runApp(Cafe()
-      // DevicePreview(
-      // enabled: !kReleaseMode,
-      // builder: (context) => MyApp(), // Wrap your app
-      // ),
-
-      );
+  runApp(Cafe());
 }
 
 class Cafe extends StatelessWidget {
-  // final coreController = Get.find<CoreController>();
-
   Cafe({super.key});
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return GetMaterialApp(
-  //     theme: CustomTheme.basicTheme(),
-  //     debugShowCheckedModeBanner: false,
-  //     initialRoute: SplashScreen.routeName,
-  //     // initialRoute: DashPageManager.routeName,
-  //     getPages: getPages,
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
     return KhaltiScope(

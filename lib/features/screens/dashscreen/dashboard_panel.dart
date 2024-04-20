@@ -74,7 +74,7 @@ class DashPageManager extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 activeIcon: SvgPicture.asset(
-                  IconPath.user,
+                  IconPath.information,
                   height: 20,
                   width: 20,
                   colorFilter: const ColorFilter.mode(

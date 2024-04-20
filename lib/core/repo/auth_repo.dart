@@ -27,7 +27,9 @@ class AuthRepo {
       dynamic data = json.decode(response.body);
 
       if (data['status']) {
-        var user = User.fromJson(data['data']);
+        // var user = User.fromJson(data['data']);
+        var user = User.fromJson(data['data']['user']);
+
         var accessToken = AccessToken.fromJson(data['data']['token']);
 
         print("=====u=====>$user");

@@ -3,7 +3,7 @@ class Api {
   // static final String baseUrl = "https://development.hamropahal.org";
   // static final String imageUrl =
 
-  static final String baseUrl = "http://192.168.0.7:7855";
+  static final String baseUrl = "http://192.168.0.7:8000";
   // http://127.0.0.1:8000/uploads/something-1711902473.jpg
 
   // php artisan serve --host=192.168.0.7 --port=7855

@@ -2,7 +2,6 @@ import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/common_alert.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
-import 'package:cafe_management_system/features/screens/favourites/presentation/favourites_screen.dart';
 import 'package:cafe_management_system/features/screens/mytables/my_reserved_tablesList.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:flutter/material.dart';
@@ -133,13 +132,13 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                ProfileTiles(
-                  onTap: () {
-                    Get.toNamed(FavouritesScreen.routeName);
-                  },
-                  iconUrl: IconPath.fav,
-                  title: "Favourite",
-                ),
+                // ProfileTiles(
+                //   onTap: () {
+                //     Get.toNamed(FavouritesScreen.routeName);
+                //   },
+                //   iconUrl: IconPath.fav,
+                //   title: "Favourite",
+                // ),
                 Divider(
                   height: 10,
                   color: AppColors.lightGrey,

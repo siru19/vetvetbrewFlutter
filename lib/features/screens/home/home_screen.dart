@@ -4,6 +4,8 @@ import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/enums.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
+import 'package:cafe_management_system/core/widgets/common/empty_view.dart';
+import 'package:cafe_management_system/core/widgets/common/error_view.dart';
 import 'package:cafe_management_system/core/widgets/common/network_imge.dart';
 import 'package:cafe_management_system/core/widgets/common/text_form_field.dart';
 import 'package:cafe_management_system/core/widgets/shimmer/product_shimmer.dart';
@@ -138,8 +140,10 @@ class HomeScreen extends StatelessWidget {
                         child: LinearProgressIndicator(),
                       );
                     } else if (c.pageState.value == PageState.EMPTY) {
-                      return const Center(
-                        child: Text("Empty Categories"),
+                      return EmptyView(
+                        message: "Looks like there is no items",
+                        title: "No items at the moment",
+                        media: IconPath.empty,
                       );
                     } else if (c.pageState.value == PageState.NORMAL) {
                       return Row(
@@ -210,9 +214,10 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     );
                                   } else {
-                                    return const Center(
-                                      child: Text(
-                                          "Error while fetching the categories"),
+                                    return ErrorView(
+                                      message: "Might be internal server error",
+                                      title: "Something went wrong",
+                                      media: IconPath.empty,
                                     );
                                   }
                                 }),
