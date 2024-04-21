@@ -1,4 +1,5 @@
 import 'package:cafe_management_system/core/model/cart/cart_model.dart';
+import 'package:cafe_management_system/core/utils/constants/apis.dart';
 import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/enums.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
@@ -156,9 +157,12 @@ class CartRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SkyNetworkImage(
-                // imageUrl: "${Api.imageUrl}${cafeItem.imageModel?.fileName}",
-                imageUrl: "",
+              SkyNetworkImage(
+                // imageUrl: "${Api.imageUrl}${item.imageModel?.fileName}",
+                imageUrl:
+                    "${Api.imageUrl}${item.cafeItem?.imageModel?.fileName}",
+
+                // imageUrl: "",
                 height: 60,
                 // width: 80,
                 boxFit: BoxFit.cover,
