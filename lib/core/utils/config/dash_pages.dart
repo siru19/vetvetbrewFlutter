@@ -22,6 +22,10 @@ import 'package:cafe_management_system/features/screens/mytables/my_reserved_tab
 import 'package:cafe_management_system/features/screens/product/controller/product_controller.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
 import 'package:cafe_management_system/features/screens/profile/about_us_screen.dart';
+import 'package:cafe_management_system/features/screens/profile/change_password_controller.dart';
+import 'package:cafe_management_system/features/screens/profile/change_pw_screen.dart';
+import 'package:cafe_management_system/features/screens/profile/update_profile_controller.dart';
+import 'package:cafe_management_system/features/screens/profile/update_profile_screen.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/controller/my_orders_controller.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:get/get.dart';
@@ -107,6 +111,25 @@ final List<GetPage> dashScreenPages = <GetPage>[
     binding: BindingsBuilder(
       () {
         Get.lazyPut(() => MyReservedTableController());
+      },
+    ),
+  ),
+
+   GetPage(
+    name: UpdateProfilScreen.routeName,
+    page: () => UpdateProfilScreen(),
+    binding: BindingsBuilder(
+      () {
+        Get.lazyPut(() => UpdateProfileController());
+      },
+    ),
+  ),
+  GetPage(
+    name: CustomerPasswordChange.routeName,
+    page: () => CustomerPasswordChange(),
+    binding: BindingsBuilder(
+      () {
+        Get.lazyPut(() => ChangePasswordController());
       },
     ),
   ),

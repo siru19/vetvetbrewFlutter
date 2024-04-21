@@ -14,6 +14,8 @@ class Api {
 // auth
   static final String signupUrl = "$baseUrl$prefix$auth/register";
 
+  static final String updateProfile = "$baseUrl$prefix$auth/update-profile";
+
   static final String loginUrl = "$baseUrl$prefix$auth/login";
   static final String forgotPassword = "$baseUrl$prefix$auth/forgot-password";
   static final String verifyOTP = "$baseUrl$prefix$auth/verify-otp";

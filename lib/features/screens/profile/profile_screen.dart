@@ -4,6 +4,8 @@ import 'package:cafe_management_system/core/widgets/common/common_alert.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:cafe_management_system/features/screens/mytables/my_reserved_tablesList.dart';
 import 'package:cafe_management_system/features/screens/profile/about_us_screen.dart';
+import 'package:cafe_management_system/features/screens/profile/change_pw_screen.dart';
+import 'package:cafe_management_system/features/screens/profile/update_profile_screen.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -77,18 +79,24 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      c.coreController.currentUser.value?.name ?? "",
-                      style: CustomTextStyles.f20W600(),
-                    ),
-                    Text(
-                      c.coreController.currentUser.value?.email ?? "",
-                      style: CustomTextStyles.f16W700(),
-                    ),
-                  ],
+                Obx(
+                  () => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        c.coreController.currentUser.value?.name ?? "",
+                        style: CustomTextStyles.f20W600(),
+                      ),
+                      Text(
+                        c.coreController.currentUser.value?.email ?? "",
+                        style: CustomTextStyles.f16W700(),
+                      ),
+                      Text(
+                        c.coreController.currentUser.value?.phone ?? "",
+                        style: CustomTextStyles.f16W700(),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -98,7 +106,9 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 ProfileTiles(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(UpdateProfilScreen.routeName);
+                  },
                   iconUrl: IconPath.user,
                   title: "Profile Setting",
                 ),
@@ -158,7 +168,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileTiles(
                   title: "Change Password",
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(CustomerPasswordChange.routeName);
+                  },
                   iconUrl: IconPath.lock,
                 ),
                 const SizedBox(
