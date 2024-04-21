@@ -21,6 +21,7 @@ import 'package:cafe_management_system/features/screens/mytables/my_reserved_tab
 import 'package:cafe_management_system/features/screens/mytables/my_reserved_tablesList.dart';
 import 'package:cafe_management_system/features/screens/product/controller/product_controller.dart';
 import 'package:cafe_management_system/features/screens/product/presentation/product_detail_screen.dart';
+import 'package:cafe_management_system/features/screens/profile/about_us_screen.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/controller/my_orders_controller.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:get/get.dart';
@@ -109,6 +110,13 @@ final List<GetPage> dashScreenPages = <GetPage>[
       },
     ),
   ),
+
+  GetPage(
+      name: AboutScreen.routeName,
+      page: () => AboutScreen(),
+      binding: BindingsBuilder(() {
+        // Get.lazyPut(() => SplashController());
+      })),
 //   // GetPage(
 //   //   name: GearListsPage.routeName,
 //   //   page: () => GearListsPage(),

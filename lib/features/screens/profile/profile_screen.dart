@@ -3,6 +3,7 @@ import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/common_alert.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:cafe_management_system/features/screens/mytables/my_reserved_tablesList.dart';
+import 'package:cafe_management_system/features/screens/profile/about_us_screen.dart';
 import 'package:cafe_management_system/features/screens/recent_orders/presentation/my_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -146,7 +147,9 @@ class ProfileScreen extends StatelessWidget {
                   endIndent: 10,
                 ),
                 ProfileTiles(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AboutScreen.routeName);
+                  },
                   title: "About Us",
                   iconUrl: IconPath.aboutUs,
                 ),
