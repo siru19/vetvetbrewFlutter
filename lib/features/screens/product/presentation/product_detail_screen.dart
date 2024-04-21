@@ -252,7 +252,7 @@ class ProductDetailScreen extends StatelessWidget {
                   onPressed: () {
                     c.addtoCart();
                   },
-                  title: "Add to Cart",
+                  title: "Order now",
                   color: AppColors.primary,
                   height: 40,
                   // width: 50,
