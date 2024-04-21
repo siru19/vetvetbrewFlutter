@@ -1,4 +1,5 @@
 import 'package:cafe_management_system/core/model/order/my_orders_response_model.dart';
+import 'package:cafe_management_system/core/utils/constants/apis.dart';
 import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/enums.dart';
 import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
@@ -25,6 +26,14 @@ class MyOrdersScreen extends StatelessWidget {
           "My Orders",
           style: CustomTextStyles.f16W600(),
         ),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       print(c.myOrdersList);
+        //     },
+        //     icon: Icon(Icons.add),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -154,7 +163,9 @@ class RecentOrderRowWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: SkyNetworkImage(
-                  imageUrl: orderItem?.product?.image ?? "",
+                  // imageUrl: orderItem?.product?.image?.fileName ?? "",
+                  imageUrl:
+                      "${Api.imageUrl}${orderItem?.product?.image?.fileName}",
                   width: 60,
                   height: 60,
                   boxFit: BoxFit.fill,
@@ -170,13 +181,6 @@ class RecentOrderRowWidget extends StatelessWidget {
                     orderItem?.product?.name ?? "",
                     style:
                         CustomTextStyles.f16W500(color: AppColors.blackColor),
-                  ),
-                  Text(
-                    orderItem?.product?.price != null
-                        ? "price: ${orderItem?.product?.price}"
-                        : "",
-                    style:
-                        CustomTextStyles.f14W400(color: AppColors.blackColor),
                   ),
                   Text(
                     orderItem?.product?.price != null
