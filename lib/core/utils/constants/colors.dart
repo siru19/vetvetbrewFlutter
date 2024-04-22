@@ -5,6 +5,8 @@ abstract class AppColors {
   static const Color yellowColor = Colors.yellow;
   static const Color green = Colors.green;
   static const Color whiteColor = Colors.white;
+  static const Color scaffoldColor = Color.fromARGB(255, 236, 235, 235);
+
   static Color lightGrey = const Color.fromARGB(255, 207, 207, 207);
 
   //Shimmer Colors

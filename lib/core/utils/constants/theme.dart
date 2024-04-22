@@ -14,17 +14,17 @@ class CustomTheme {
     return ThemeData.light().copyWith(
       appBarTheme: const AppBarTheme(
         foregroundColor: AppColors.primary,
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.scaffoldColor,
       ),
-      // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      //   backgroundColor: AppColors.backGroundColor,
-      //   selectedItemColor: AppColors.primaryColor,
-      //   showSelectedLabels: true,
-      //   showUnselectedLabels: true,
-      //   selectedLabelStyle: TextStyle(color: AppColors.primaryColor),
-      //   unselectedLabelStyle: TextStyle(),
-      //   type: BottomNavigationBarType.fixed,
-      // ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AppColors.scaffoldColor,
+        selectedItemColor: AppColors.primary,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        selectedLabelStyle: TextStyle(color: AppColors.primary),
+        unselectedLabelStyle: TextStyle(),
+        type: BottomNavigationBarType.fixed,
+      ),
       // popupMenuTheme:
       //     const PopupMenuThemeData(color: AppColors.backGroundColor),
       // // progressIndicatorTheme: const ProgressIndicatorThemeData(
@@ -34,7 +34,7 @@ class CustomTheme {
       // //     circularTrackColor: AppColors.primaryColor),
       // textTheme: getGearTextTheme(),
       // primaryColor: AppColors.primaryColor,
-      // scaffoldBackgroundColor: AppColors.backGroundColor,
+      scaffoldBackgroundColor: AppColors.scaffoldColor,
       // hintColor: AppColors.lightGreen,
       // colorScheme: ColorScheme.dark(
       //   primary: AppColors.primaryColor,

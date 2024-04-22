@@ -1,3 +1,4 @@
+import 'package:cafe_management_system/core/utils/constants/theme.dart';
 import 'package:cafe_management_system/features/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class Cafe extends StatelessWidget {
         return GetMaterialApp(
           title: "Velvetbrew",
           useInheritedMediaQuery: true,
-          // theme: CustomTheme.basicTheme(),
+          theme: CustomTheme.basicTheme(),
           debugShowCheckedModeBanner: false,
           initialRoute: SplashScreen.routeName,
           getPages: getPages,
