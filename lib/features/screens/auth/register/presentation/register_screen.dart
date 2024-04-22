@@ -202,7 +202,9 @@ class RegisterScreen extends StatelessWidget {
                       style: CustomTextStyles.f15W600(color: AppColors.primary),
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.back();
+                        },
                         child: Text(
                           "Login",
                           style: CustomTextStyles.f15W600(

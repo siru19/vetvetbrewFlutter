@@ -344,23 +344,15 @@ class ItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // SvgPicture.network(
-            //   // APIPathHelper.imageUrl + icon.toString(),
-            //   // IconPath.apple,
-            //   "$icon",
-            //   height: 35,
-            //   width: 35,
-            //   alignment: Alignment.center,
-            // ),
-
             Expanded(
               flex: 3,
               child: Align(
                 alignment: Alignment.center,
                 child: SkyNetworkImage(
                   imageUrl: "${Api.imageUrl}${cafeItem.imageModel?.fileName}",
-                  height: 80,
+                  // height: 80,
                   // width: 80,
+                  width: Get.width,
                   boxFit: BoxFit.cover,
                   // alignment: Alignment.center,
                 ),

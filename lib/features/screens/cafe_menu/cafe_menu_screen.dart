@@ -1,7 +1,9 @@
 import 'package:cafe_management_system/core/controllers/dashscreen/menu/menu_controller.dart';
+import 'package:cafe_management_system/core/utils/constants/apis.dart';
 import 'package:cafe_management_system/core/utils/constants/colors.dart';
 import 'package:cafe_management_system/core/utils/constants/enums.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
+import 'package:cafe_management_system/core/widgets/common/network_imge.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -73,13 +75,33 @@ class CafeMenuScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
-                                        flex: 2, child: Text(item?.name ?? "")),
-                                    const Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                          "-------------------------------------------------"),
+                                      flex: 2,
+                                      child: Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: SkyNetworkImage(
+                                              height: 30,
+                                              width: 30,
+                                              // imageUrl: "",
+                                              imageUrl:
+                                                  "${Api.imageUrl}${item?.imageModel?.fileName}",
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(item?.name ?? "")
+                                        ],
+                                      ),
                                     ),
-                                    Text(item?.price ?? ""),
+                                    const Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                          "------------------------------------------"),
+                                    ),
+                                    Text("Rs. ${item?.price ?? ""}"),
                                   ],
                                 );
                               } else {
