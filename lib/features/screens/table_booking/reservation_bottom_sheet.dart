@@ -27,14 +27,18 @@ class TableReservationBottomSheet extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "Booking For: ${table.name}",
-              style: CustomTextStyles.f28W600(
+              style: CustomTextStyles.f22W400(
                 color: AppColors.primary,
               ),
             ),
           ),
+          Divider(
+            color: Colors.grey,
+          ),
           Container(
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 if (c.pickedSplittedDate != null && c.pickedSplittedDate != "")
                   Obx(
@@ -45,13 +49,10 @@ class TableReservationBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                const SizedBox(
-                  height: 10,
-                ),
                 if (c.pickedSplittedTime != null && c.pickedSplittedTime != "")
                   Obx(
                     () => Text(
-                      "Book Time: ${c.pickedSplittedTime.value}",
+                      "Time: ${c.pickedSplittedTime.value}",
                       style: CustomTextStyles.f16W600(
                         color: AppColors.blackColor,
                       ),

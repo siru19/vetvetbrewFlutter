@@ -3,4 +3,5 @@ class ImagePath {
   static const String logo = "$basePath/Chalchitra_logo.png";
   static const String placeHolder = "$basePath/Chalchitra_logo.png";
   static const String cafeLogo = "$basePath/cafe_logo.png";
+  static const String mainLogo = "$basePath/cafe_logo.png";
 }

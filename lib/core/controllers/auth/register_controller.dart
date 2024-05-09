@@ -47,10 +47,10 @@ class RegisterController extends GetxController {
           onSuccess: (user) {
             loading.hide();
             coreController.loadCurrentUser();
-            Get.offAllNamed(LoginScreen.routeName);
             SkySnackBar.success(
                 title: "Register Success",
                 message: "Account created successfully");
+            Get.offAllNamed(LoginScreen.routeName);
           },
           onError: (message) {
             loading.hide();

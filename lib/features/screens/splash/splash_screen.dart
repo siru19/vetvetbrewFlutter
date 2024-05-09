@@ -1,8 +1,6 @@
 import 'package:cafe_management_system/core/controllers/splash_controller.dart';
-import 'package:cafe_management_system/core/utils/constants/icon_paths.dart';
 import 'package:cafe_management_system/core/widgets/common/custom_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../core/utils/constants/colors.dart';
@@ -17,8 +15,15 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(IconPath.cupLogo),
+            // SvgPicture.asset(IconPath.cupLogo),
+            Image.asset(
+              "assets/images/logo.png",
+              height: 200,
+              width: 200,
+            ),
             const SizedBox(
               height: 20,
             ),
